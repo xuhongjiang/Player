@@ -1,7 +1,7 @@
 package com.jafir.player;
 
-import android.arch.persistence.room.Entity;
-import android.arch.persistence.room.PrimaryKey;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
 /**
  * created by jafir on 2019/3/15

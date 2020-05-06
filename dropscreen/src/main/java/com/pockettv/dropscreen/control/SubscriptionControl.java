@@ -1,7 +1,7 @@
 package com.pockettv.dropscreen.control;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.pockettv.dropscreen.entity.IDevice;
 import com.pockettv.dropscreen.service.callback.AVTransportSubscriptionCallback;

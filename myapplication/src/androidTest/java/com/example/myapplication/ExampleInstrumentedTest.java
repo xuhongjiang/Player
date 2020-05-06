@@ -1,4 +1,4 @@
-package com.jafir.player;
+package com.example.myapplication;
 
 import android.content.Context;
 
@@ -22,6 +22,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
 
-        assertEquals("com.jafir.player", appContext.getPackageName());
+        assertEquals("com.example.myapplication", appContext.getPackageName());
     }
 }

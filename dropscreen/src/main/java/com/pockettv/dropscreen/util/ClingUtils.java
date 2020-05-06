@@ -1,6 +1,6 @@
 package com.pockettv.dropscreen.util;
 
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 import com.pockettv.dropscreen.entity.IControlPoint;
 import com.pockettv.dropscreen.entity.IDevice;

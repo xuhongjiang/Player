@@ -25,8 +25,6 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Build;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -37,6 +35,9 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.MediaController;
 import android.widget.TableLayout;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 
 import com.pockettv.player.BuildConfig;
 import com.pockettv.player.MediaCodecType;
@@ -1153,7 +1154,7 @@ public class IjkVideoView extends FrameLayout implements MediaController.MediaPl
                         ijkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "overlay-format", pixelFormat);
                     }
                     ijkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "framedrop", 1);
-                    ijkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "start-on-prepared", 0);
+                    ijkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "start-on-prepared", 1);
 
                     ijkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_FORMAT, "http-detect-range-support", 0);
 
@@ -1166,7 +1167,7 @@ public class IjkVideoView extends FrameLayout implements MediaController.MediaPl
                     if (mUri != null && !TextUtils.isEmpty(mUri.toString())) {
                         if (mUri.toString().startsWith("rtmp")) {
                             ijkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_FORMAT, "analyzemaxduration", 100L);
-                            ijkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_FORMAT, "probesize", 10240L);
+                            ijkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_FORMAT, "probesize", 200);//1024L
                             ijkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_FORMAT, "flush_packets", 1L);
                             ijkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "packet-buffering", 0L);
                             ijkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "framedrop", 1L);
@@ -1193,7 +1194,22 @@ public class IjkVideoView extends FrameLayout implements MediaController.MediaPl
 // 如果没有设置stimeout，在解析时（也就是avformat_open_input）把网线拔掉，av_read_frame会阻塞（时间单位是微妙）
                             ijkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_FORMAT, "stimeout", "5000000");
 
-
+// 设置播放前的探测时间 1,达到首屏秒开效果
+                            ijkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_FORMAT, "analyzeduration", 1);
+                            // 不额外优化（使能非规范兼容优化，默认值0 ）
+                            ijkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "fast", 1);
+                            // 默认最小帧数2
+                            ijkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "min-frames", 2);
+                            // 缩短播放的rtmp视频延迟在1s内
+                            ijkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_FORMAT, "fflags", "nobuffer");
+                            // 跳过帧 ？？
+                            ijkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_CODEC, "skip_frame", 0);
+                            // 去掉音频
+                            ijkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "an", 1);
+                            // 不查询stream_info，直接使用
+                            ijkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "find_stream_info", 0);
+                            // 等待开始之后才绘制
+                            ijkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "render-wait-start", 1);
                         }
                     }
                 }
@@ -1392,6 +1408,24 @@ public class IjkVideoView extends FrameLayout implements MediaController.MediaPl
     /**
      * 录制视频相关 =========================================================================
      */
+
+    //截图获取一帧图片数据
+    public Bitmap snapshotBitmap() {
+        if (mMediaPlayer == null) {
+            return null;
+        }
+
+        int width = mMediaPlayer.getVideoWidth();
+        int height = mMediaPlayer.getVideoHeight();
+        final Bitmap srcBitmap = Bitmap.createBitmap(width,
+                height, Bitmap.Config.ARGB_8888);
+        boolean flag = mMediaPlayer.getCurrentFrame(srcBitmap);
+        if (flag) {
+            return srcBitmap;
+        }
+        return null;
+    }
+
     //截图
     public boolean snapshotPicture(final File file) {
         if (mMediaPlayer == null) {

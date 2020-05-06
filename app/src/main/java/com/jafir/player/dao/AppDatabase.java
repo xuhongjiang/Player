@@ -1,9 +1,9 @@
 package com.jafir.player.dao;
 
 import android.app.Application;
-import android.arch.persistence.room.Database;
-import android.arch.persistence.room.Room;
-import android.arch.persistence.room.RoomDatabase;
+import androidx.room.Database;
+import androidx.room.Room;
+import androidx.room.RoomDatabase;
 
 import com.jafir.player.RecordingModel;
 
@@ -12,7 +12,8 @@ import com.jafir.player.RecordingModel;
         entities = {
                 RecordingModel.class,
         },
-        version = 1
+        version = 1,
+        exportSchema = false
 )
 public abstract class AppDatabase extends RoomDatabase {
 
@@ -23,5 +24,3 @@ public abstract class AppDatabase extends RoomDatabase {
                 .build();
     }
 }
-
-

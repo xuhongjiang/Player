@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
 import android.graphics.Matrix;
 import android.graphics.PointF;
 import android.media.AudioManager;
@@ -17,11 +18,6 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.Settings;
-import android.support.v4.view.MotionEventCompat;
-import android.support.v4.view.ViewCompat;
-import android.support.v4.view.ViewPropertyAnimatorListenerAdapter;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.GestureDetector;
@@ -38,6 +34,12 @@ import android.widget.ProgressBar;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.MotionEventCompat;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.ViewPropertyAnimatorListenerAdapter;
 
 import com.pockettv.player.R;
 import com.pockettv.player.utils.AnimHelper;
@@ -268,6 +270,15 @@ public class IjkPlayerView extends FrameLayout implements View.OnClickListener {
         //流量播放提醒
         mLlMobileNotify = findViewById(R.id.view_video_hint);
         mTvMobileGoOn = findViewById(R.id.view_video_play);
+
+
+        mHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                mTvMobileGoOn.performClick();
+            }
+        });
+
 
         mAspectRatioOptions = (RadioGroup) findViewById(R.id.aspect_ratio_group);
         mAspectOptionsHeight = getResources().getDimensionPixelSize(R.dimen.aspect_btn_size) * 4;
@@ -2249,6 +2260,10 @@ public class IjkPlayerView extends FrameLayout implements View.OnClickListener {
     public void stopRecord() {
         mIsRecording = false;
         mVideoView.stopRecord();
+    }
+
+    public Bitmap snapshotBitmap() {
+        return mVideoView.snapshotBitmap();
     }
 
     public void screenShot(File file) {

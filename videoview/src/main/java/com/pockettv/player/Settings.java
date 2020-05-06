@@ -65,7 +65,7 @@ public class Settings {
 
     public int getUsingMediaCodec() {
         String key = mAppContext.getString(R.string.pref_key_using_media_codec);
-        return mSharedPreferences.getInt(key, 2);
+        return mSharedPreferences.getInt(key, 1);
     }
 
     public void setUsingMediaCodec(int codec) {

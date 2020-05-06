@@ -1,7 +1,8 @@
 package com.pockettv.dropscreen.control;
 
-import android.support.annotation.Nullable;
 import android.util.Log;
+
+import androidx.annotation.Nullable;
 
 import com.pockettv.dropscreen.control.callback.ControlCallback;
 import com.pockettv.dropscreen.control.callback.ControlReceiveCallback;

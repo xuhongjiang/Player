@@ -13,10 +13,10 @@ ext {
     androidVersionName = '1.0.0'
 
     // SDK and tools version
-    androidBuildToolsVersion = '26.0.3'
+    androidBuildToolsVersion = '28.0.3'
     androidMinSdkVersion = 14
-    androidTargetSdkVersion = 26
-    androidCompileSdkVersion = 26
+    androidTargetSdkVersion = 28
+    androidCompileSdkVersion = 28
 
     // App dependencies version
     supportLibraryVersion = '27.1.1'
@@ -24,7 +24,7 @@ ext {
     ijkplayerVersion = '0.8.8'
 
     roomVersion = '1.1.1'
-    butterKnifeVersion = '8.8.1'
+    butterKnifeVersion = '10.2.1'
     titlebarVersion = '1.0.2'
     baseAdapterVersion = "2.9.35"
     glideVersion = '4.8.0'

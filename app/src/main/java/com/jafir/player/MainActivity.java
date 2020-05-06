@@ -16,9 +16,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
-import android.support.v4.util.Pair;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -28,6 +25,10 @@ import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.util.Pair;
 
 import com.jafir.player.dao.AppDatabase;
 import com.jafir.player.dao.RecordingVideoDao;
@@ -74,9 +75,11 @@ public class MainActivity extends AppCompatActivity {
     private static final String INTENT_KEY_FIRST_FULL = "intent_key_first_full";
 
 
-    private String MOCK_PLAY_URL = "http://cctvalih5ca.v.myalicdn.com/live/cctv4_2/index.m3u8";
+//    private String MOCK_PLAY_URL = "http://cctvalih5ca.v.myalicdn.com/live/cctv4_2/index.m3u8";
     //    private String MOCK_PLAY_URL = "rtsp://61.156.103.73:554/PLTV/88888888/224/3221226043/10000100000000060000000000286778_0.smil";
 //        private String MOCK_PLAY_URL = "rtsp://117.159.12.233:554/pag://10.10.2.17:7302:35010000001310011390:0:MAIN:TCP";
+//        private String MOCK_PLAY_URL = "rtsp://admin:admin123@164.0.0.64:554/h264/ch1/main/av_stream";
+        private String MOCK_PLAY_URL = "rtsp://admin:Ts4009694288@192.168.0.164:554/h264/ch1/main/av_stream";
     //需要m3u8地址
     private String MOCK_DROP_URL = "http://cctvalih5ca.v.myalicdn.com/live/cctv4_2/index.m3u8";
     public static final String MOCK_TITLE = "播放标题";
